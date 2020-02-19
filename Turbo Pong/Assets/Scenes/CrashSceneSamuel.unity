@@ -711,6 +711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7.5
+  compteur: 0
 --- !u!1 &945562772
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,9 +1195,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1440655850}
   - component: {fileID: 1440655851}
+  - component: {fileID: 1440655852}
   m_Layer: 0
   m_Name: GoalDetectP2
-  m_TagString: Untagged
+  m_TagString: P1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1209,7 +1211,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1440655849}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.4, y: 0, z: 0}
+  m_LocalPosition: {x: 11.4, y: 0, z: 3.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 335679096}
@@ -1228,6 +1230,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.83709717, y: 10.973282, z: 1}
   m_Center: {x: -0.2986555, y: 0.06335068, z: 0}
+--- !u!114 &1440655852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440655849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16a77ed1276b53749a83535e8967d56b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Ball: {fileID: 878806698}
+  ScoreP1: {fileID: 367623480}
+  ScoreP2: {fileID: 1878261632}
+  BallSP: {x: 0, y: 0, z: 0}
 --- !u!1 &1457907817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,9 +1256,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1457907818}
   - component: {fileID: 1457907819}
+  - component: {fileID: 1457907820}
   m_Layer: 0
   m_Name: GoalDetectP1
-  m_TagString: Untagged
+  m_TagString: P2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1253,7 +1272,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1457907817}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.76, y: 0, z: 0}
+  m_LocalPosition: {x: -10.76, y: -0.01, z: 2.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 335679096}
@@ -1272,6 +1291,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.83709717, y: 10.973282, z: 1}
   m_Center: {x: -0.2986555, y: 0.06335068, z: 0}
+--- !u!114 &1457907820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457907817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16a77ed1276b53749a83535e8967d56b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Ball: {fileID: 878806698}
+  ScoreP1: {fileID: 367623480}
+  ScoreP2: {fileID: 1878261632}
+  BallSP: {x: 0, y: 0, z: 0}
 --- !u!1 &1783741099
 GameObject:
   m_ObjectHideFlags: 0
