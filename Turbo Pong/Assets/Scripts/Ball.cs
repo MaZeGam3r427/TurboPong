@@ -48,6 +48,8 @@ public class Ball : MonoBehaviour
 
         if(var_ScoreP1 == 11 || var_ScoreP2 == 11)
         {
+            var_ScoreP1 = 0;
+            var_ScoreP2 = 0;
             Time.timeScale = 0f;
             EndMenuUI.SetActive(true);
             GameUI.SetActive(false);
@@ -112,7 +114,15 @@ public class Ball : MonoBehaviour
 
     IEnumerator EndGame()
     {
+        Time.timeScale = 0f;
+        GameUI.SetActive(false);
         EndMenuUI.SetActive(true);
+        yield return null;
+    }
+
+    public IEnumerator RestartGame()
+    {
+        StartCoroutine(BallCoroutine());
         yield return null;
     }
 }
