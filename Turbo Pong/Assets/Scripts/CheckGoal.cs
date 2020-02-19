@@ -17,12 +17,9 @@ public class CheckGoal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ScoreP1.text = var_ScoreP1.ToString();
-        ScoreP2.text = var_ScoreP2.ToString();
+        
 
-        BallSP = Ball.transform.position;
-
-        GameObject.Find("Ball").GetComponent<Ball>().Spawn();
+        //GameObject.Find("Ball").GetComponent<Ball>().Spawn();
         
     
     }
