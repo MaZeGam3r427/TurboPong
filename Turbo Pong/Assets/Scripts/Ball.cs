@@ -53,12 +53,17 @@ public class Ball : MonoBehaviour
             Time.timeScale = 0f;
             EndMenuUI.SetActive(true);
             GameUI.SetActive(false);
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
         
     }
 
     public void Spawn()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
         float sx = Random.Range(0, 2) == 0 ? -1 : 1;
         float sy = Random.Range(0, 2) == 0 ? -1 : 1;

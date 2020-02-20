@@ -6,10 +6,14 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Button")]
     public Button QuitButton;
     public Button RestartButton;
+
+    [Header("UI")]
     public GameObject EndMenuUI;
     public GameObject GameWindow;
+
     [HideInInspector] public IEnumerator EndGame;
 
     // Start is called before the first frame update
