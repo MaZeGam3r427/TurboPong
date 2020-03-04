@@ -24,7 +24,7 @@ public class Bumper : MonoBehaviour
         if (isBump1)
         {
             float MoveP1 = Input.GetAxis("VerticalP1");
-            Debug.Log(MoveP1);
+            //Debug.Log(MoveP1);
             if (MoveP1 != 0)
             {
                 Vector3 movementP1 = new Vector3(0, MoveP1, 0);
@@ -36,7 +36,7 @@ public class Bumper : MonoBehaviour
         else
         {
             float MoveP2 = Input.GetAxis("VerticalP2");
-            Debug.Log(MoveP2);
+            //Debug.Log(MoveP2);
             if (MoveP2 != 0)
             {
                 Vector3 movementP2 = new Vector3(0, MoveP2, 0);

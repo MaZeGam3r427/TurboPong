@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Ball : MonoBehaviour
 {
     [Header("Settings")]
     public float speed = 5f;
     float compteur;
-    public GameObject EndMenuUI;
-    public GameObject GameUI;
 
     [Header("Ball")]
     public Rigidbody m_Rigidbody;
@@ -23,9 +22,9 @@ public class Ball : MonoBehaviour
     int var_ScoreP2 = 0;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        Spawn();
+        StartCoroutine(BallCoroutine());
 
         ScoreP1.text = var_ScoreP1.ToString();
         ScoreP2.text = var_ScoreP2.ToString();
@@ -37,7 +36,7 @@ public class Ball : MonoBehaviour
     private void Update()
     {
         compteur += Time.deltaTime;
-        Debug.Log(compteur);
+        //Debug.Log(compteur);
 
         if (compteur >= 5f)
         {
@@ -51,11 +50,10 @@ public class Ball : MonoBehaviour
             var_ScoreP1 = 0;
             var_ScoreP2 = 0;
             Time.timeScale = 0f;
-            EndMenuUI.SetActive(true);
-            GameUI.SetActive(false);
 
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         
     }
@@ -115,14 +113,6 @@ public class Ball : MonoBehaviour
         //Release the ball
         m_Rigidbody.constraints = RigidbodyConstraints.None;
         Spawn();
-    }
-
-    IEnumerator EndGame()
-    {
-        Time.timeScale = 0f;
-        GameUI.SetActive(false);
-        EndMenuUI.SetActive(true);
-        yield return null;
     }
 
     public IEnumerator RestartGame()
