@@ -26,6 +26,8 @@ public class Ball : MonoBehaviour
     {
         StartCoroutine(BallCoroutine());
 
+        var_ScoreP1 = 0;
+        var_ScoreP2 = 0;
         ScoreP1.text = var_ScoreP1.ToString();
         ScoreP2.text = var_ScoreP2.ToString();
 
@@ -38,6 +40,7 @@ public class Ball : MonoBehaviour
         compteur += Time.deltaTime;
         //Debug.Log(compteur);
 
+        //If the ball touchs nothins during 5f, it comes back at its spawnpoint
         if (compteur >= 5f)
         {
             compteur = 0f;
@@ -53,11 +56,12 @@ public class Ball : MonoBehaviour
 
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadScene("EndMenu", LoadSceneMode.Single);
         }
         
     }
 
+    //Give speed and a random direction to the ball 
     public void Spawn()
     {
         Cursor.visible = false;
@@ -74,6 +78,7 @@ public class Ball : MonoBehaviour
         m_Rigidbody.velocity = new Vector3(speed * sx, speed * sy, 0f);
     }
 
+    //Add 1 to the score when the ball reachs the goal
     public void OnTriggerEnter(Collider other)
     {
         if (other.tag == "P1")
@@ -104,6 +109,7 @@ public class Ball : MonoBehaviour
         }
     }
 
+    //Break after a goal
     IEnumerator BallCoroutine()
     {
         //Block the ball

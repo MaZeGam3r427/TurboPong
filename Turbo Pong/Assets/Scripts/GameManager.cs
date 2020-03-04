@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Singleton;
 
     [Header("Music")]
     public AudioSource AudioSource;
     public AudioClip EndMusic;
+    public AudioClip Lvl2_Music;
 
     /*[Header("UI")]
     public GameObject EndMenuUI;
@@ -23,14 +23,6 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
         DontDestroyOnLoad(gameObject);
-        if (Singleton != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Singleton = this;
-        }
     }
 
 
@@ -46,11 +38,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void NewGame()
-    {
-        StartCoroutine(EndGame);
-    }
-
     public void QuitGame()
     {
         Application.Quit();
@@ -59,17 +46,34 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene("Level 2", LoadSceneMode.Single);
     }
+
+    public void SwitchMenu()
+    {
+        SceneManager.LoadScene("CharacterMenu", LoadSceneMode.Single);
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+
     public void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
+        if (scene.name == "Level 2")
+        {
+            AudioSource.clip = Lvl2_Music;
+            AudioSource.Play();
+        }
         if (scene.name == "EndMenu")
         {
             AudioSource.clip = EndMusic;
             AudioSource.Play();
             
             GameObject.Find("ButtonRestart").GetComponent<Button>().onClick.AddListener(RestartGame);
-            GameObject.Find("QuitRestart").GetComponent<Button>().onClick.AddListener(QuitGame);
+            GameObject.Find("ButtonChange").GetComponent<Button>().onClick.AddListener(SwitchMenu);
+            GameObject.Find("ButtonMenu").GetComponent<Button>().onClick.AddListener(LoadMainMenu);
 
         }
     }
@@ -78,7 +82,8 @@ public class GameManager : MonoBehaviour
 
     void OnDisable()
     {
-        //Tell our 'OnLevelFinishedLoading' function to stop listening for a scene change as soon as this script is disabled. Remember to always have an unsubscription for every delegate you subscribe to!
+        //Tell our 'OnLevelFinishedLoading' function to stop listening for a scene change as soon as this script is disabled. 
+        //Remember to always have an unsubscription for every delegate you subscribe to!
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
     }
 }
