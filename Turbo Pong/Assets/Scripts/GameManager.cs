@@ -4,18 +4,23 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("UI")]
+    public GameObject PauseMenuUI;
+    private GameObject GameUI;
+    public static bool IsPaused = false;
 
     [Header("Music")]
     public AudioSource AudioSource;
     public AudioClip EndMusic;
     public AudioClip Lvl2_Music;
+    public AudioMixer myMixer;
 
-    /*[Header("UI")]
-    public GameObject EndMenuUI;
-    public GameObject GameWindow;*/
+    public GameObject Ball;
+    private GameObject inGame_Ball;
 
     [HideInInspector] public IEnumerator EndGame;
 
@@ -29,13 +34,46 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EndGame = GameObject.Find("Ball").GetComponent<Ball>().RestartGame();
+        EndGame = Ball.GetComponent<Ball>().RestartGame();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            if (IsPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+    }
 
+    public void Pause()
+    {
+        GameUI.SetActive(false);
+        PauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        IsPaused = true;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        inGame_Ball.SetActive(false);
+    }
+
+    public void Resume()
+    {
+        GameUI.SetActive(true);
+        PauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        IsPaused = false;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        inGame_Ball.SetActive(true);
     }
 
     public void QuitGame()
@@ -59,8 +97,16 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
+    public void SetVolume(float volume)
+    {
+        myMixer.SetFloat("Volume", volume);
+    }
+
     public void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
+        inGame_Ball = GameObject.Find("Ball");
+        GameUI = GameObject.Find("GameUI");
+
         if (scene.name == "Level 2")
         {
             AudioSource.clip = Lvl2_Music;
@@ -75,6 +121,11 @@ public class GameManager : MonoBehaviour
             GameObject.Find("ButtonChange").GetComponent<Button>().onClick.AddListener(SwitchMenu);
             GameObject.Find("ButtonMenu").GetComponent<Button>().onClick.AddListener(LoadMainMenu);
 
+        }
+        if(scene.name == "MainMenu")
+        {
+            AudioSource.clip = null;
+            AudioSource.Stop();
         }
     }
 
