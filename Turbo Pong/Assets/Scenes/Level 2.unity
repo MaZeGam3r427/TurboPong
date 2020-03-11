@@ -627,7 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5119a2018673b664b8b9e3ae82983661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 7.5
   m_Rigidbody: {fileID: 878806703}
   Balle: {fileID: 878806698}
   ScoreP1: {fileID: 367623480}

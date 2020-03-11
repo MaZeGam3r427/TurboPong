@@ -773,8 +773,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 463477769}
-        m_MethodName: PlayGame
+      - m_Target: {fileID: 1209799005}
+        m_MethodName: LoadMapMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -883,6 +883,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1748433665550870913, guid: f1e7e38959a92c74cb949282ce06cc64,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.13
+      objectReference: {fileID: 0}
     - target: {fileID: 1748433665550870918, guid: f1e7e38959a92c74cb949282ce06cc64,
         type: 3}
       propertyPath: m_Name
