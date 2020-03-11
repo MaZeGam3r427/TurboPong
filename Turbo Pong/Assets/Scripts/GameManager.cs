@@ -15,12 +15,14 @@ public class GameManager : MonoBehaviour
 
     [Header("Music")]
     public AudioSource AudioSource;
+    public AudioClip MusicMenu;
     public AudioClip EndMusic;
     public AudioClip Lvl2_Music;
     public AudioMixer myMixer;
 
     public GameObject Ball;
     private GameObject inGame_Ball;
+
 
     [HideInInspector] public IEnumerator EndGame;
 
@@ -39,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        /*if (Input.GetKeyDown(KeyCode.Escape))
             if (IsPaused)
             {
                 Resume();
@@ -47,10 +49,10 @@ public class GameManager : MonoBehaviour
             else
             {
                 Pause();
-            }
+            }*/
     }
 
-    public void Pause()
+    /*public void Pause()
     {
         GameUI.SetActive(false);
         PauseMenuUI.SetActive(true);
@@ -74,7 +76,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         inGame_Ball.SetActive(true);
-    }
+    }*/
 
     public void QuitGame()
     {
@@ -124,8 +126,8 @@ public class GameManager : MonoBehaviour
         }
         if(scene.name == "MainMenu")
         {
-            AudioSource.clip = null;
-            AudioSource.Stop();
+            AudioSource.clip = MusicMenu;
+            AudioSource.Play();
         }
     }
 
