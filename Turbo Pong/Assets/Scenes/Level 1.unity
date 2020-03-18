@@ -1018,6 +1018,7 @@ GameObject:
   - component: {fileID: 1273046515}
   - component: {fileID: 1273046519}
   - component: {fileID: 1273046520}
+  - component: {fileID: 1273046521}
   m_Layer: 0
   m_Name: Bump2
   m_TagString: Bumpers
@@ -1129,6 +1130,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 2
+--- !u!114 &1273046521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273046514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d129ed05a5b801469df7d5b977dccef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 0
+  player: {fileID: 1273046514}
+  ennemi: {fileID: 1385642331}
 --- !u!1 &1296965167
 GameObject:
   m_ObjectHideFlags: 0
