@@ -10,11 +10,6 @@ public class MainMenu : MonoBehaviour
     public GameObject MainMenuUI;
     public GameObject OptionsMenuUI;
 
-    public void PlayGame()
-    {
-        SceneManager.LoadScene("Level 2", LoadSceneMode.Single);
-    }
-
     public void OptionMenu()
     {
         MainMenuUI.SetActive(false);
