@@ -21,6 +21,14 @@ public class Ball : MonoBehaviour
     public int var_ScoreP1 = 0;
     int var_ScoreP2 = 0;
 
+    [Header("SFX")]
+    public AudioSource SFXAudioSource;
+    public AudioClip Engagement;
+    public AudioClip ImpactBarre;
+    public AudioClip PickUp;
+    public AudioClip PointMarque;
+    public AudioClip USePowerUp;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -87,6 +95,8 @@ public class Ball : MonoBehaviour
             var_ScoreP1 += 1;
             ScoreP1.text = var_ScoreP1.ToString();
             Balle.transform.position = BallSP;
+            SFXAudioSource.clip = PointMarque;
+            SFXAudioSource.Play();
         }
 
         if (other.tag == "P2")
@@ -95,6 +105,8 @@ public class Ball : MonoBehaviour
             var_ScoreP2 += 1;
             ScoreP2.text = var_ScoreP2.ToString();
             Balle.transform.position = BallSP;
+            SFXAudioSource.clip = PointMarque;
+            SFXAudioSource.Play();
         }
 
         StartCoroutine(BallCoroutine());
@@ -118,6 +130,8 @@ public class Ball : MonoBehaviour
         yield return  new WaitForSeconds(1f);
         //Release the ball
         m_Rigidbody.constraints = RigidbodyConstraints.None;
+        SFXAudioSource.clip = Engagement;
+        SFXAudioSource.Play();
         Spawn();
     }
 

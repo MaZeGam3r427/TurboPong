@@ -14,10 +14,12 @@ public class GameManager : MonoBehaviour
     public static bool IsPaused = false;
 
     [Header("Music")]
-    public AudioSource AudioSource;
+    public AudioSource MusicAudioSource;
     public AudioClip MusicMenu;
     public AudioClip EndMusic;
+    public AudioClip Lvl1_Music;
     public AudioClip Lvl2_Music;
+    public AudioClip Lvl3_Music;
     public AudioMixer myMixer;
 
     public GameObject Ball;
@@ -33,7 +35,6 @@ public class GameManager : MonoBehaviour
 
     private int Level;
 
-
     [HideInInspector] public IEnumerator EndGame;
 
     private void Awake()
@@ -48,45 +49,6 @@ public class GameManager : MonoBehaviour
     {
         EndGame = Ball.GetComponent<Ball>().RestartGame();
     }
-
-    private void Update()
-    {
-        /*if (Input.GetKeyDown(KeyCode.Escape))
-            if (IsPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }*/
-    }
-
-    /*public void Pause()
-    {
-        GameUI.SetActive(false);
-        PauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        IsPaused = true;
-
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
-        inGame_Ball.SetActive(false);
-    }
-
-    public void Resume()
-    {
-        GameUI.SetActive(true);
-        PauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
-        IsPaused = false;
-
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        inGame_Ball.SetActive(true);
-    }*/
 
     //Quitting the game
     public void QuitGame()
@@ -163,8 +125,8 @@ public class GameManager : MonoBehaviour
     public void ReloadMapMenu()
     {
         SceneManager.LoadScene("ChooseMap", LoadSceneMode.Single);
-        AudioSource.clip = MusicMenu;
-        AudioSource.Play();
+        MusicAudioSource.clip = MusicMenu;
+        MusicAudioSource.Play();
     }
 
     //When click on the button, load the main menu
@@ -185,6 +147,7 @@ public class GameManager : MonoBehaviour
     {
         inGame_Ball = GameObject.Find("Ball");
         GameUI = GameObject.Find("GameUI");
+        Time.timeScale = 1f;
 
         if(scene.name == "ChooseMap")
         {
@@ -204,26 +167,26 @@ public class GameManager : MonoBehaviour
 
         if(scene.name == "Level 1")
         {
-            AudioSource.clip = null;
-            AudioSource.Stop();
+            MusicAudioSource.clip = Lvl1_Music;
+            MusicAudioSource.Play();
         }
 
         if (scene.name == "Level 2")
         {
-            AudioSource.clip = Lvl2_Music;
-            AudioSource.Play();
+            MusicAudioSource.clip = Lvl2_Music;
+            MusicAudioSource.Play();
         }
 
         if (scene.name == "Level 3")
         {
-            AudioSource.clip = null;
-            AudioSource.Stop();
+            MusicAudioSource.clip = Lvl3_Music;
+            MusicAudioSource.Play();
         }
 
         if (scene.name == "EndMenu")
         {
-            AudioSource.clip = EndMusic;
-            AudioSource.Play();
+            MusicAudioSource.clip = EndMusic;
+            MusicAudioSource.Play();
             
             GameObject.Find("ButtonRestart").GetComponent<Button>().onClick.AddListener(RestartGame);
             GameObject.Find("ButtonChange").GetComponent<Button>().onClick.AddListener(ReloadMapMenu);
@@ -232,8 +195,8 @@ public class GameManager : MonoBehaviour
         }
         if(scene.name == "MainMenu")
         {
-            AudioSource.clip = MusicMenu;
-            AudioSource.Play();
+            MusicAudioSource.clip = MusicMenu;
+            MusicAudioSource.Play();
 
             Level = 0;
         }
