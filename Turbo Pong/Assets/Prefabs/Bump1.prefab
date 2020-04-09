@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBump1: 1
-  speed: 625
+  speed: 1000
   myRigid: {fileID: 8644059262109155417}
 --- !u!54 &8644059262109155417
 Rigidbody:
@@ -120,7 +120,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 10000
   m_Drag: 0
-  m_AngularDrag: 5
+  m_AngularDrag: 1
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0

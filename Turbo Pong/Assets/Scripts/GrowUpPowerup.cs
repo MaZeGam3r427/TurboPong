@@ -5,12 +5,11 @@ using UnityEngine;
 public class GrowUpPowerup : MonoBehaviour
 {
 
-    public GameObject tallBar;
-    public GameObject normalBar;
-    private Vector3 positionNormalBar;
-    private Quaternion rotationNormalBar;
+    public GameObject Ball;
+    public float multiplier = 2f;
 
     private float timer = 5f;
+    private bool isTall = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,16 +20,21 @@ public class GrowUpPowerup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        positionNormalBar = normalBar.transform.position;
-        rotationNormalBar = normalBar.transform.rotation;
-
-        if (Input.GetKeyDown(KeyCode.RightAlt))
+        if (isTall == false)
         {
-            Instantiate(tallBar, positionNormalBar, rotationNormalBar);
-            Destroy(normalBar);
-            Destroy(gameObject);
+            Ball.transform.localScale *= multiplier;
+            isTall = true;
         }
-    }
 
-    
+            if (isTall == true)
+            {
+                timer -= 1 * Time.deltaTime;
+                if (timer <= 0)
+                {
+                    isTall = false;
+                    timer = 5f;
+                    Ball.transform.localScale /= multiplier;
+                }
+            }
+    }
 }

@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5119a2018673b664b8b9e3ae82983661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 10
   m_Rigidbody: {fileID: 3394439265000345812}
   Balle: {fileID: 3394439265000345809}
   ScoreP1: {fileID: 0}
@@ -147,7 +147,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.02
+  m_Volume: 0.12
   m_Pitch: 1
   Loop: 0
   Mute: 0

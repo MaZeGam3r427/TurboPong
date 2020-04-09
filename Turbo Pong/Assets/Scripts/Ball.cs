@@ -25,13 +25,21 @@ public class Ball : MonoBehaviour
     public AudioSource SFXAudioSource;
     public AudioClip Engagement;
     public AudioClip ImpactBarre;
-    public AudioClip PickUp;
     public AudioClip PointMarque;
-    public AudioClip USePowerUp;
+    public static Ball Singleton;
 
     // Start is called before the first frame update
     void Awake()
     {
+        if(Singleton != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Singleton = this;
+        }
+
         StartCoroutine(BallCoroutine());
 
         var_ScoreP1 = 0;
@@ -49,7 +57,7 @@ public class Ball : MonoBehaviour
         //Debug.Log(compteur);
 
         //If the ball touchs nothins during 5f, it comes back at its spawnpoint
-        if (compteur >= 5f)
+        if (compteur >= 3f)
         {
             compteur = 0f;
             Balle.transform.position = BallSP;
@@ -118,6 +126,8 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.CompareTag("Bumpers"))
         {
             compteur = 0f;
+            SFXAudioSource.clip = ImpactBarre;
+            SFXAudioSource.Play();
         }
     }
 

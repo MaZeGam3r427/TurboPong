@@ -5,77 +5,212 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
 
-    public float timer;
-    public GameObject player;
-    public GameObject ennemi;
-    private float goodMultiplier = 1.4f;
-    private float badMultiplier = 0.6f;
+    float timerJ1;
+    float timerJ2;
+    float timerPowerJ1 = 5f;
+    float timerPowerJ2 = 5f;
+    bool isPowerJ1 = false;
+    bool isPowerJ2 = false;
+    bool isGrow = false;
+    bool isSlow = false;
+    public GameObject Ball;
+    public float multiplier = 1.4f;
+    private bool isTall = false;
+
+    [Space(5)]
+    [Header("UI PowerUp")]
+    public GameObject GrowUpJ1;
+    public GameObject GrowUpJ2;
+    public GameObject SlowMoJ1;
+    public GameObject SlowMoJ2;
+
+    [Space(5)]
+    [Header("SFX")]
+    public AudioClip PickUp;
+    public AudioClip USePowerUp;
+    private AudioSource AudioS;
+
+
+    int PowerAvailableJ1 = -1;
+    int PowerAvailableJ2 = -1;
 
     // Start is called before the first frame update
     void Start()
     {
-        timer = 10;
+        AudioS = GetComponent<AudioSource>();
+        timerJ1 = 10f;
+        timerJ2 = 10f;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer -= 1 * Time.deltaTime;
+        Debug.Log(timerJ1);
+        Debug.Log(timerJ2);
 
-        if(timer <= 0)
+
+        if (PowerAvailableJ1 == -1)
         {
-            int rand = Random.Range(0, 2);
+            timerJ1 -=  Time.deltaTime;
+            
+        }
+        if(PowerAvailableJ2 == -1)
+        {
+            timerJ2 -= Time.deltaTime;
+        }
+        
+
+        if (isPowerJ1 == true)
+        {
+            timerPowerJ1 -= Time.deltaTime;
+        }
+
+        if (isPowerJ2 == true)
+        {
+            timerPowerJ2 -= Time.deltaTime;
+        }
+
+        if (timerJ1 <= 0 && timerPowerJ1 == 5f)
+        {
+            AudioS.clip = PickUp;
+            AudioS.Play();
+            timerJ1 = 10f;
+            int rand = Random.Range(0, 1);
             switch (rand)
             {
                 case 0:
+                    PowerAvailableJ1 = 0;
+                    GrowUpJ1.SetActive(true);
+                    break;
+                /*case 1:
+                    PowerAvailableJ1 = 1;
+                    SlowMoJ1.SetActive(true);
+                    break;*/
+            }
+        }
+
+        if (timerJ2 <= 0 && timerPowerJ2 == 5f)
+        {
+            AudioS.clip = PickUp;
+            AudioS.Play();
+            timerJ2 = 10f;
+            int rand = Random.Range(0, 1);
+            switch (rand)
+            {
+                case 0:
+                    PowerAvailableJ2 = 0;
+                    GrowUpJ2.SetActive(true);
+                    break;
+                /*case 1:
+                    PowerAvailableJ2 = 1;
+                    SlowMoJ2.SetActive(true);
+                    break;*/
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightShift) && isPowerJ2 == false)
+        {
+            AudioS.clip = USePowerUp;
+            AudioS.Play();
+            isPowerJ2 = true;
+            switch (PowerAvailableJ2)
+            {
+                case 0:
                     Power1();
+                    isGrow = true;
                     break;
-                case 1:
+                /*case 1:
                     Power2();
+                    isSlow = true;
+                    break;*/
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isPowerJ1 == false)
+        {
+            AudioS.clip = USePowerUp;
+            AudioS.Play();
+            isPowerJ1 = true;
+            switch (PowerAvailableJ1)
+            {
+                case 0:
+                    Power1();
+                    isGrow = true;
                     break;
-                case 2:
-                    Power3();
-                    break;
-                default: break;
+                /*case 1:
+                    Power2();
+                    isSlow = true;
+                    break;*/
             }
 
-            timer = 10f;
         }
+
+        if ((timerPowerJ1 <= 0) && (isPowerJ1) && isGrow == true)
+        {
+            Ball.transform.localScale /= multiplier;
+            timerPowerJ1 = 5f;
+            isPowerJ1 = false;
+            isGrow = false;
+            PowerAvailableJ1 = -1;
+        }
+
+        if ((timerPowerJ2 <= 0) && (isPowerJ2) && isGrow == true)
+        {
+            Ball.transform.localScale /= multiplier;
+            timerPowerJ1 = 5f;
+            isPowerJ2 = false;
+            isGrow = false;
+            PowerAvailableJ1 = -1;
+        }
+
+
+        /*if ((timerPowerJ1 <= 0) && (isPowerJ1) && isSlow == true)
+        {
+            Ball.GetComponent<Ball>().speed += 8f;
+            timerPowerJ1 = 5f;
+            isPowerJ1 = false;
+            PowerAvailableJ1 = -1;
+        }
+
+        if ((timerPowerJ2 <= 0) && (isPowerJ2) && isSlow == true)
+        {
+            Ball.GetComponent<Ball>().speed += 8f;
+            timerPowerJ1 = 5f;
+            isPowerJ2 = false;
+            PowerAvailableJ2 = -1;
+        }*/
 
     }
 
     void Power1()
     {
-        if (Input.GetKey(KeyCode.RightShift))
-        {
-            player.transform.localScale *= goodMultiplier;
-            float timerBis = 10f;
-            timerBis -= 1 * Time.deltaTime;
-            if (timerBis <= 0)
-            {
-                player.transform.localScale *= badMultiplier;
-            }
-        }        
-    }
+        Ball.transform.localScale *= multiplier;
 
-    void Power2()
-    {
-        if (Input.GetKey(KeyCode.RightShift))
+        if (isPowerJ1)
         {
-            ennemi.transform.localScale *= badMultiplier;
-            float timerBis = 10f;
-            timerBis -= 1 * Time.deltaTime;
-            if (timerBis <= 0)
-            {
-                ennemi.transform.localScale *= goodMultiplier;
-            }
+            GrowUpJ1.SetActive(false);
         }
-        
+        else
+        {
+            GrowUpJ2.SetActive(false);
+        }
     }
 
-    void Power3()
+
+    /*void Power2()
     {
-        Debug.Log("hello");
-    }
+        Ball.GetComponent<Ball>().speed -= 8f;
+
+        if (isPowerJ1)
+        {
+            SlowMoJ1.SetActive(false);
+        }
+
+        if(isPowerJ2)
+        {
+            SlowMoJ2.SetActive(false);
+        }
+    }*/
 
 }
